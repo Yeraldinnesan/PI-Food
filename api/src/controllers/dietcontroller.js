@@ -5,16 +5,15 @@ const dietsToDb = async () => {
     "gluten free",
     "ketogenic",
     "vegetarian",
-    "lacto vegetarian",
-    "ovo vegetarian",
     "lacto ovo vegetarian",
     "vegan",
+    "dairy free",
     "pescatarian",
+    "lacto vegetarian",
     "paleolithic",
     "primal",
-    "fodmap friendly",
     "whole 30",
-    "dairy free",
+    "low FODMAP",
   ];
   // Iterate each element of the array and checks
   //in the database if the name (where: name of element) does not exists, creates it

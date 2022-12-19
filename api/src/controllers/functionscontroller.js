@@ -21,7 +21,7 @@ const apiSearch = async () => {
         image: recipe.image,
         summary: recipe.summary,
         healthScore: recipe.healthScore,
-        diets: recipe.diet?.map((el) => el),
+        diets: recipe.diets?.map((el) => el),
         steps: recipe.analyzedInstructions,
       };
     });

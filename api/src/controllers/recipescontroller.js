@@ -45,8 +45,16 @@ const filterById = async (id) => {
 
 const postRecipe = async (newRecipe) => {
   try {
-    const { name, summary, healthScore, steps, image, dishTypes, diets } =
-      newRecipe;
+    const {
+      name,
+      cookingTime,
+      summary,
+      healthScore,
+      steps,
+      image,
+      dishTypes,
+      diets,
+    } = newRecipe;
     const recipe = {
       name,
       summary,
@@ -54,6 +62,7 @@ const postRecipe = async (newRecipe) => {
       steps,
       image,
       dishTypes,
+      cookingTime,
     };
 
     const allDiets = await DietType.findAll({
@@ -61,9 +70,8 @@ const postRecipe = async (newRecipe) => {
         name: diets,
       },
     });
-    const createRecipe = await Recipe.create(recipe);
-
     // createRecipe.addDiets(allDiets);
+    const createRecipe = await Recipe.create(recipe);
 
     return Recipe.findAll();
   } catch (error) {
