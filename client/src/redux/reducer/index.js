@@ -5,11 +5,13 @@ import {
   SET_CURRENT_PAGE,
   FILTER_CREATED,
   SORT_ALPHABETICALLY,
+  SORT_BY_HEALTHSCORE,
+  GET_RECIPES_BY_NAME,
 } from "../actions/index";
 
 const initialState = {
-  recipes: [],
-  allRecipes: [],
+  recipes: [], // rendering
+  allRecipes: [], // backup one
   diets: [],
   currentPage: 1,
 };
@@ -34,7 +36,18 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         currentPage: action.payload,
       };
-    //-------------------> FILTERS <----------------------------------------
+
+    case GET_RECIPES_BY_NAME:
+      return {
+        ...state,
+        recipes: action.payload,
+      };
+
+    case "POST_RECIPE":
+      return {
+        ...state,
+      };
+    //--------------------------> FILTERS <----------------------------------------
 
     case FILTER_BY_DIET:
       const allRecipes = state.allRecipes;
@@ -47,7 +60,7 @@ export const rootReducer = (state = initialState, action) => {
               if (action.payload === "gluten free" && el.glutenFree)
                 return true;
               if (action.payload === "dairy free" && el.dairyFree) return true;
-              return el.diets.includes(action.payload);
+              return el.diets?.includes(action.payload);
             });
       if (!filteredRecipes.length) {
         alert("No recipes found");
@@ -77,24 +90,60 @@ export const rootReducer = (state = initialState, action) => {
     //------------------------> SORTERS <-------------------------------------------
 
     case SORT_ALPHABETICALLY:
-      const toSortArr =
+      const alphSorted =
         action.payload === "a-z"
           ? state.recipes.sort((a, b) => {
-              if (a.name > b.name) return 1;
-              if (a.name < b.name) return -1;
+              if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+              if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
               return 0;
             })
           : state.recipes.sort((a, b) => {
-              if (a.name > b.name) return -1;
-              if (a.name < b.name) return 1;
+              if (a.name.toLowerCase() > b.name.toLowerCase()) return -1;
+              if (a.name.toLowerCase() < b.name.toLowerCase()) return 1;
               return 0;
             });
 
       return {
         ...state,
-        recipes: toSortArr,
+        recipes: alphSorted,
+        currentPage: 2,
       };
 
+    case SORT_BY_HEALTHSCORE:
+      const newOne = [...state.recipes];
+      const yessssssss =
+        action.payload === "max-min"
+          ? newOne.sort((a, b) => {
+              if (a.healthScore < b.healthScore) return 1;
+              if (a.healthScore > b.healthScore) return -1;
+              return 0;
+            })
+          : newOne.sort((a, b) => {
+              if (a.healthScore > b.healthScore) return 1;
+              if (a.healthScore < b.healthScore) return -1;
+              return 0;
+            });
+
+      return {
+        ...state,
+        recipes: yessssssss,
+        currentPage: 2,
+      };
+
+    //----------------------------------------------------------------------------------
+    // case SORT_BY_HEALTHSCORE:
+
+    //   let scoreSorted =
+    //     action.payload === "none"
+    //       ? state.recipes
+    //       : action.payload === "min-max"
+    //       ? state.recipes.sort((a, b) => a.healthScor - b.healthScore)
+    //       : state.recipes.sort((a, b) => b.healthScore - a.healthScore);
+    //   return {
+    //     ...state,
+    //     recipes: scoreSorted,
+    //     currentPage: 2,
+    //   };
     //---------------------------------------------------------------------------
 
     default:

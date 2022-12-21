@@ -45,23 +45,14 @@ const filterById = async (id) => {
 
 const postRecipe = async (newRecipe) => {
   try {
-    const {
-      name,
-      cookingTime,
-      summary,
-      healthScore,
-      steps,
-      image,
-      dishTypes,
-      diets,
-    } = newRecipe;
+    const { name, cookingTime, summary, healthScore, steps, image, diets } =
+      newRecipe;
     const recipe = {
       name,
       summary,
       healthScore,
       steps,
       image,
-      dishTypes,
       cookingTime,
     };
 
@@ -70,9 +61,8 @@ const postRecipe = async (newRecipe) => {
         name: diets,
       },
     });
-    // createRecipe.addDiets(allDiets);
     const createRecipe = await Recipe.create(recipe);
-
+    // createRecipe.addDiet(allDiets);
     return Recipe.findAll();
   } catch (error) {
     console.log(error);

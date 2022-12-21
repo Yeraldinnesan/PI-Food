@@ -1,20 +1,75 @@
 import React from "react";
-// import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+// import { useState } from "react";
 
-import Created from "./Filters/Created";
-import DietTypes from "./Filters/DietType";
-import AtoZ from "./Sorters/AtoZ";
-import HealthScore from "./Sorters/HealthScore";
+import {
+  getAllDiets,
+  filterByDiet,
+  setCurrentPage,
+  filterCreated,
+  sortAlphabetically,
+  sortByHealthScore,
+} from "../../redux/actions/index";
+
+import Filters from "./Filters/Filters";
+import Sorters from "./Sorters/Sorters";
 
 const FiltersBar = (props) => {
-  // const dispatch = useDispatch();
+  const allDiets = useSelector((state) => state.diets);
 
+  //------------------->  LOCAL STATES <------------------
+  // const [alphOrder, setAlphOrder] = useState("");
+  //   const [scoreOrder, setScoreOrder] = useState("");
+  //--------------------------------------------------------
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllDiets());
+  }, []);
+
+  //----------------------> FILTER HANDLERS <---------------
+  const dietFilterHandler = (e) => {
+    dispatch(filterByDiet(e.target.value));
+    dispatch(setCurrentPage(1)); // if standing on another page thats not 1 directs you to page 1 when filtering
+    // setAlphOrder("");
+    //     setScoreOrder("");
+  };
+
+  const createdFilterHandler = (e) => {
+    dispatch(filterCreated(e.target.value));
+    dispatch(setCurrentPage(1));
+    // setAlphOrder("");
+    // setScoreOrder("");
+  };
+
+  //--------------------------> SORT HANDLERS <-----------------
+
+  const alphSorterHandler = (e) => {
+    e.preventDefault();
+    dispatch(sortAlphabetically(e.target.value));
+    dispatch(setCurrentPage(1));
+    // setAlphOrder(`Ordered ${e.target.value}`);
+  };
+
+  const scoreSorterHandler = (e) => {
+    e.preventDefault();
+    dispatch(sortByHealthScore(e.target.value));
+    dispatch(setCurrentPage(1));
+    // setScoreOrder(`Ordered${e.target.value}`);
+  };
+  //-----------------------------------------------------------------
   return (
     <div>
-      <AtoZ />
-      <HealthScore />
-      <DietTypes />
-      <Created />
+      <Sorters
+        alphSorterHandler={alphSorterHandler}
+        scoreSorterHandler={scoreSorterHandler}
+      />
+      <Filters
+        allDiets={allDiets}
+        dietFilterHandler={dietFilterHandler}
+        createdFilterHandler={createdFilterHandler}
+      />
     </div>
   );
 };

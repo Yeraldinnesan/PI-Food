@@ -6,6 +6,11 @@ import { Link } from "react-router-dom";
 import FiltersBar from "../Filters Bar/FiltersBar";
 import Card from "../Card/Card";
 import Pagination from "../Pagination/Pagination";
+import SearchBar from "../SearchBar/SearchBar";
+
+//---------------------------PRUEBAS
+
+//------------------------
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -40,10 +45,12 @@ const Home = () => {
   // console.log(allRecipes);
   return (
     <div>
-      <Link to="/recipes">
+      <Link to="/create">
         <button>Create Recipe</button>
       </Link>
+
       <button onClick={(e) => onClickHandler(e)}>All Recipes</button>
+      <SearchBar currentRecipes={currentRecipes} />
       <FiltersBar />
 
       <Pagination

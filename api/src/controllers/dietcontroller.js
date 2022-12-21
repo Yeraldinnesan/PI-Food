@@ -1,7 +1,7 @@
 const { DietType } = require("../db");
 
 const dietsToDb = async () => {
-  const diets = [
+  const dietsT = [
     "gluten free",
     "ketogenic",
     "vegetarian",
@@ -17,7 +17,7 @@ const dietsToDb = async () => {
   ];
   // Iterate each element of the array and checks
   //in the database if the name (where: name of element) does not exists, creates it
-  diets.forEach((el) => {
+  dietsT.forEach((el) => {
     DietType.findOrCreate({
       where: {
         name: el,

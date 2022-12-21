@@ -5,6 +5,8 @@ export const FILTER_BY_DIET = "FILTER_BY_DIET";
 export const FILTER_CREATED = "FILTER_CREATED";
 export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 export const SORT_ALPHABETICALLY = "SORT_ALPHABETICALLY";
+export const SORT_BY_HEALTHSCORE = "SORT_BY_HEALTHSCORE";
+export const GET_RECIPES_BY_NAME = "GET_RECIPES_BY_NAME";
 
 export const filterByDiet = (payload) => {
   return {
@@ -32,6 +34,13 @@ export const sortAlphabetically = (payload) => {
     payload,
   };
 };
+
+export const sortByHealthScore = (payload) => {
+  return {
+    type: SORT_BY_HEALTHSCORE,
+    payload,
+  };
+};
 //---------------------> ACTIONS THAT CONNECT FRONT AND BACK <-------------------
 
 const recipesBaseUrl = "http://localhost:3001/recipes";
@@ -40,7 +49,7 @@ const dietsBaseUrl = "http://localhost:3001/diets";
 export const getAllRecipes = () => {
   return async function (dispatch) {
     try {
-      let res = await axios.get(recipesBaseUrl);
+      let res = await axios(recipesBaseUrl);
       return dispatch({
         type: GET_ALL_RECIPES,
         payload: res.data,
@@ -54,7 +63,7 @@ export const getAllRecipes = () => {
 export const getAllDiets = () => {
   return async function (dispatch) {
     try {
-      let res = await axios.get(dietsBaseUrl);
+      let res = await axios(dietsBaseUrl);
 
       return dispatch({
         type: GET_ALL_DIETS,
@@ -63,6 +72,28 @@ export const getAllDiets = () => {
     } catch (error) {
       return error;
     }
+  };
+};
+
+export const getRecipebyName = (name) => {
+  return async (dispatch) => {
+    try {
+      var res = await axios(`${recipesBaseUrl}?name=${name}`);
+      return dispatch({
+        type: "GET_RECIPES_BY_NAME",
+        payload: res.data,
+      });
+    } catch (err) {
+      return err;
+    }
+  };
+};
+
+export const postRecipe = (payload) => {
+  return async (dispatch) => {
+    const res = await axios.post(recipesBaseUrl, payload);
+    console.log(res);
+    return res;
   };
 };
 
