@@ -7,6 +7,7 @@ import {
   SORT_ALPHABETICALLY,
   SORT_BY_HEALTHSCORE,
   GET_RECIPES_BY_NAME,
+  CLEAR_RECIPES,
 } from "../actions/index";
 
 const initialState = {
@@ -47,29 +48,43 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
       };
-    //--------------------------> FILTERS <----------------------------------------
 
+    case CLEAR_RECIPES:
+      return {
+        ...state,
+        recipes: [],
+      };
+    //--------------------------> FILTERS <----------------------------------------
     case FILTER_BY_DIET:
-      const allRecipes = state.allRecipes;
-      let filteredRecipes =
-        action.payload === "all"
-          ? allRecipes
-          : state.allRecipes.filter((el) => {
-              if (action.payload === "vegan" && el.vegan) return true;
-              if (action.payload === "vegetarian" && el.vegetarian) return true;
-              if (action.payload === "gluten free" && el.glutenFree)
-                return true;
-              if (action.payload === "dairy free" && el.dairyFree) return true;
-              return el.diets?.includes(action.payload);
-            });
-      if (!filteredRecipes.length) {
-        alert("No recipes found");
-        filteredRecipes = allRecipes;
-      }
+      const filteredRecipes = state.recipes.filter((el) =>
+        el.diets.includes(action.payload) ? el : null
+      );
+
       return {
         ...state,
         recipes: filteredRecipes,
       };
+    // case FILTER_BY_DIET:
+    //   const allRecipes = state.allRecipes;
+    //   let filteredRecipes =
+    //     action.payload === "all"
+    //       ? allRecipes
+    //       : state.allRecipes.filter((el) => {
+    //           if (action.payload === "vegan" && el.vegan) return true;
+    //           if (action.payload === "vegetarian" && el.vegetarian) return true;
+    //           if (action.payload === "gluten free" && el.glutenFree)
+    //             return true;
+    //           if (action.payload === "dairy free" && el.dairyFree) return true;
+    //           return el.diets?.includes(action.payload);
+    //         });
+    //   if (!filteredRecipes.length) {
+    //     alert("No recipes found");
+    //     filteredRecipes = allRecipes;
+    //   }
+    //   return {
+    //     ...state,
+    //     recipes: filteredRecipes,
+    //   };
 
     case FILTER_CREATED:
       const filtRecipes = state.allRecipes;

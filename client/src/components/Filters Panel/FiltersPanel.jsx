@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 // import { useState } from "react";
+import "../Filters Panel/filterspanel.css";
 
 import {
   getAllDiets,
@@ -61,15 +62,23 @@ const FiltersBar = (props) => {
   //-----------------------------------------------------------------
   return (
     <div>
-      <Sorters
-        alphSorterHandler={alphSorterHandler}
-        scoreSorterHandler={scoreSorterHandler}
-      />
-      <Filters
-        allDiets={allDiets}
-        dietFilterHandler={dietFilterHandler}
-        createdFilterHandler={createdFilterHandler}
-      />
+      {/* SORTERS */}
+      <div className="sort-group">
+        <p className="label">Sort</p>
+        <Sorters
+          alphSorterHandler={alphSorterHandler}
+          scoreSorterHandler={scoreSorterHandler}
+        />
+      </div>
+      {/* FILTERS */}
+      <div>
+        <p className="label">Filter</p>
+        <Filters
+          allDiets={allDiets}
+          dietFilterHandler={dietFilterHandler}
+          createdFilterHandler={createdFilterHandler}
+        />
+      </div>
     </div>
   );
 };

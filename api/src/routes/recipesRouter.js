@@ -24,18 +24,6 @@ recipesRouter.get("/", async (req, res) => {
   }
 });
 
-// -----------------> GET by id Route
-
-recipesRouter.get("/:id", async (req, res) => {
-  const { id } = req.params;
-  try {
-    const foundRecipe = await filterById(id);
-    res.status(200).json(foundRecipe);
-  } catch (err) {
-    res.status(400).json(err);
-  }
-});
-
 // -----------------> POST recipe Route
 
 recipesRouter.post("/", async (req, res) => {
@@ -48,6 +36,18 @@ recipesRouter.post("/", async (req, res) => {
   } catch (error) {
     // not founds
     res.status(404).send(error);
+  }
+});
+
+// -----------------> GET by id Route
+
+recipesRouter.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const foundRecipe = await filterById(id);
+    res.status(200).json(foundRecipe);
+  } catch (err) {
+    res.status(400).json(err);
   }
 });
 

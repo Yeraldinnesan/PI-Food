@@ -2,7 +2,7 @@ import "./App.css";
 import { Route } from "react-router-dom";
 import LandingPage from "./components/LandingPage/LandingPage.jsx";
 import Home from "./components/Home/Home.jsx";
-import CreateRecipe from "./components/CreateRecipe/CreateRecipe.jsx";
+import { CreateRecipe } from "./components/CreateRecipe/CreateRecipe";
 
 //Baila tu cuerpo alegria macarena <3
 function App() {

@@ -1,0 +1,39 @@
+.searchBar-wrap {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.26);
+  padding: 1.5rem 1rem;
+}
+
+.searchBar-wrap input {
+  font-size: 1.5rem;
+  outline: none;
+  border: none;
+  width: 100%;
+}
+
+.searchBar-wrap input ::placeholder {
+  color: rgba(0, 0, 0, 0.26);
+}
+
+.dropdown {
+  background-color: white;
+  display: flex;
+  flex-flow: column-wrap;
+  /* border: 1px solid gray; */
+}
+
+.dropdown:empty {
+  border: none;
+}
+
+.dropdown-row {
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: start;
+
+  margin: 2px;
+  border: 1px solid gray;
+  border-radius: 5px;
+}

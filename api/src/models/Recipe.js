@@ -4,7 +4,7 @@ const { DataTypes, UUIDV4 } = require("sequelize");
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define(
-    "Recipe",
+    "recipe",
     {
       id: {
         type: DataTypes.UUID, //gives a unique hexadecimal number
@@ -14,8 +14,6 @@ module.exports = (sequelize) => {
       },
       name: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
         allowNull: false,
       },
       summary: {
@@ -29,7 +27,7 @@ module.exports = (sequelize) => {
         type: DataTypes.INTEGER,
       },
       image: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
         defaultValue:
           "https://st2.depositphotos.com/1310390/5294/v/950/depositphotos_52942549-stock-illustration-set-of-black-silhouette-food.jpg",

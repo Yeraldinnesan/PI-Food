@@ -1,4 +1,4 @@
-const { DietType } = require("../db");
+const { Diet } = require("../db");
 
 const dietsToDb = async () => {
   const dietsT = [
@@ -18,13 +18,13 @@ const dietsToDb = async () => {
   // Iterate each element of the array and checks
   //in the database if the name (where: name of element) does not exists, creates it
   dietsT.forEach((el) => {
-    DietType.findOrCreate({
+    Diet.findOrCreate({
       where: {
         name: el,
       },
     });
   });
-  return DietType.findAll();
+  return Diet.findAll();
 };
 
 module.exports = { dietsToDb };

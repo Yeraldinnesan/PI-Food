@@ -1,6 +1,6 @@
 const axios = require("axios");
 const { API_KEY } = process.env;
-const { Recipe, DietType } = require("../db.js");
+const { Recipe, Diet } = require("../db.js");
 
 // -----------------> Fetch all the info from the API <-----------------
 
@@ -22,7 +22,9 @@ const apiSearch = async () => {
         summary: recipe.summary,
         healthScore: recipe.healthScore,
         diets: recipe.diets?.map((el) => el),
-        steps: recipe.analyzedInstructions,
+        steps: recipe.analyzedInstructions[0]?.steps
+          .map((ele) => `${ele.number} ${ele.step}`)
+          .join(" "),
       };
     });
     return apiRecipes;
@@ -37,7 +39,7 @@ const dbSearch = async () => {
   try {
     const dbRecipes = await Recipe.findAll({
       include: {
-        model: DietType,
+        model: Diet,
         attributes: ["name"],
         //if any of the attributes is in the realations
         //
@@ -54,7 +56,7 @@ const dbSearch = async () => {
         image: el.image,
         summary: el.summary,
         healthScore: el.healthScore,
-        diets: el.diet?.map((e) => e),
+        diets: el.diets?.map((el) => el.name),
         steps: el.steps,
       };
     });

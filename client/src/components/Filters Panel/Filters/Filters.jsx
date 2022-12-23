@@ -1,19 +1,22 @@
 import React from "react";
+import "../Filters/filters.css";
 
 const Filters = (props) => {
   return (
-    <div>
-      <label>
-        Filter by Diet:
+    <div className="filters-wrap">
+      <label className="label">
+        <p>Diets</p>
         <select onChange={(e) => props.dietFilterHandler(e)}>
-          <option value="all">all</option>
+          <option selected disabled>
+            --
+          </option>
           {props.allDiets?.map((el) => (
             <option value={el.name}>{el.name}</option>
           ))}
         </select>
       </label>
-      <label>
-        Filter by created:
+      <label className="label">
+        By created:
         <select onChange={(e) => props.createdFilterHandler(e)}>
           <option value="api">Recipe Book</option>
           <option value="database">Created</option>

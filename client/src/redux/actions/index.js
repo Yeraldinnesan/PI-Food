@@ -7,6 +7,8 @@ export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 export const SORT_ALPHABETICALLY = "SORT_ALPHABETICALLY";
 export const SORT_BY_HEALTHSCORE = "SORT_BY_HEALTHSCORE";
 export const GET_RECIPES_BY_NAME = "GET_RECIPES_BY_NAME";
+export const CLEAR_RECIPES = "CLEAR_RECIPES";
+export const POST_RECIPE = "POST_RECIPE";
 
 export const filterByDiet = (payload) => {
   return {
@@ -41,6 +43,12 @@ export const sortByHealthScore = (payload) => {
     payload,
   };
 };
+
+export function clearRecipes() {
+  return {
+    type: CLEAR_RECIPES,
+  };
+}
 //---------------------> ACTIONS THAT CONNECT FRONT AND BACK <-------------------
 
 const recipesBaseUrl = "http://localhost:3001/recipes";
@@ -91,9 +99,13 @@ export const getRecipebyName = (name) => {
 
 export const postRecipe = (payload) => {
   return async (dispatch) => {
-    const res = await axios.post(recipesBaseUrl, payload);
-    console.log(res);
-    return res;
+    try {
+      const res = await axios.post(recipesBaseUrl, payload);
+      console.log(res);
+      return res;
+    } catch (err) {
+      console.log(err);
+    }
   };
 };
 

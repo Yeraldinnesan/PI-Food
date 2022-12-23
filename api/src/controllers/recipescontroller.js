@@ -1,6 +1,6 @@
 // const Recipe = require("../models/Recipe");
 const { allSearches } = require("./functionscontroller");
-const { DietType, Recipe } = require("../db");
+const { Diet, Recipe } = require("../db");
 
 // ----------------> Filter recipes by their name
 // Brings all recipes related with the keyword entered
@@ -45,7 +45,7 @@ const filterById = async (id) => {
 
 const postRecipe = async (newRecipe) => {
   try {
-    const { name, cookingTime, summary, healthScore, steps, image, diets } =
+    const { name, summary, healthScore, steps, image, diets, cookingTime } =
       newRecipe;
     const recipe = {
       name,
@@ -56,19 +56,44 @@ const postRecipe = async (newRecipe) => {
       cookingTime,
     };
 
-    const allDiets = await DietType.findAll({
+    const allDiets = await Diet.findAll({
       where: {
         name: diets,
       },
     });
-    const createRecipe = await Recipe.create(recipe);
-    // createRecipe.addDiet(allDiets);
+    const createdRecipe = await Recipe.create(recipe);
+
+    createdRecipe.addDiets(allDiets);
+
     return Recipe.findAll();
   } catch (error) {
     console.log(error);
   }
 };
 
+//-------------------------
+// const postNewRecipe = async (objRecipe) => {
+//   try {
+//     const { name, summary, healthScore, steps, image, diets } = objRecipe;
+//     const recipe = {
+//       name,
+//       summary,
+//       healthScore,
+//       steps,
+//       image,
+//     };
+
+//     const dietsTypes = await Diet.findAll({
+//       where: { name: diets },
+//     });
+
+//     const newRecipe = await Recipe.create(recipe);
+
+//     newRecipe.addDiet(dietsTypes);
+//   } catch (error) {
+//     console.log("Error in postNewRecipe", error);
+//   }
+// };
 //-----------------------------------------------
 
 // const postRecipe = async (newRecipe) => {
