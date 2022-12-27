@@ -4,6 +4,8 @@ import Loading from "../Loading/Loading";
 import "../Card/card.css";
 
 const Card = (props) => {
+  console.log(props.id);
+
   return (
     <div className="card-wrap">
       <div key={props.id}></div>
@@ -21,6 +23,11 @@ const Card = (props) => {
           ))}
         </span>
       </footer>
+      <div>
+        <Link to={`/detail/${props.id}`}>
+          <button>See More</button>
+        </Link>
+      </div>
     </div>
   );
 };

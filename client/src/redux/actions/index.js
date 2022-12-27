@@ -9,6 +9,7 @@ export const SORT_BY_HEALTHSCORE = "SORT_BY_HEALTHSCORE";
 export const GET_RECIPES_BY_NAME = "GET_RECIPES_BY_NAME";
 export const CLEAR_RECIPES = "CLEAR_RECIPES";
 export const POST_RECIPE = "POST_RECIPE";
+export const RECIPE_DETAIL = "RECIPE_DETAIL";
 
 export const filterByDiet = (payload) => {
   return {
@@ -63,7 +64,7 @@ export const getAllRecipes = () => {
         payload: res.data,
       });
     } catch (error) {
-      return error;
+      window.alert("No recipes Found");
     }
   };
 };
@@ -78,7 +79,7 @@ export const getAllDiets = () => {
         payload: res.data,
       });
     } catch (error) {
-      return error;
+      window.alert("No diets found");
     }
   };
 };
@@ -92,7 +93,7 @@ export const getRecipebyName = (name) => {
         payload: res.data,
       });
     } catch (err) {
-      return err;
+      console.log(err);
     }
   };
 };
@@ -104,10 +105,37 @@ export const postRecipe = (payload) => {
       console.log(res);
       return res;
     } catch (err) {
-      console.log(err);
+      window.alert("Recipe couldn't be created");
     }
   };
 };
+export const getRecipeDetail = (id) => {
+  return async (dispatch) => {
+    try {
+      let res = await axios(`${recipesBaseUrl}/${id}`);
+      return dispatch({
+        type: "RECIPE_DETAIL",
+        payload: res.data,
+      });
+    } catch (err) {
+      window.alert(`Oooops! Something went wrong`);
+    }
+  };
+};
+
+// export const getRecipeDetail = (id) => {
+//   return async (dispatch) => {
+//     try {
+//       let res = axios(`recipesBaseUrl${id}`);
+//       return dispatch({
+//         type: "RECIPE_DETAIL",
+//         payload: res.data,
+//       });
+//     } catch (err) {
+//       window.alert(`Oooops! Something went wrong`);
+//     }
+//   };
+// };
 
 // export const getRecipesName = (name) => {
 //   return (dispatch) => {

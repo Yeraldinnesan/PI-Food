@@ -8,12 +8,14 @@ import {
   SORT_BY_HEALTHSCORE,
   GET_RECIPES_BY_NAME,
   CLEAR_RECIPES,
+  RECIPE_DETAIL,
 } from "../actions/index";
 
 const initialState = {
   recipes: [], // rendering
   allRecipes: [], // backup one
   diets: [],
+  detail: [],
   currentPage: 1,
 };
 
@@ -42,6 +44,11 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         recipes: action.payload,
+      };
+
+    case RECIPE_DETAIL:
+      return {
+        detail: action.payload,
       };
 
     case "POST_RECIPE":

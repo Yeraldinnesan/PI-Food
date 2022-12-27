@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // import { useState } from "react";
 import "../Pagination/pagination.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,10 +10,14 @@ const Pagination = (props) => {
   const allRecipes = useSelector((state) => state.recipes);
   const currentPage = useSelector((state) => state.currentPage);
 
-  const pageNumbers = [];
-
-  for (let i = 1; i <= Math.ceil(allRecipes.length / props.recipesPerPage); i++)
+  let pageNumbers = [];
+  for (
+    let i = 1;
+    i <= Math.ceil(allRecipes?.length / props.recipesPerPage);
+    i++
+  )
     pageNumbers.push(i);
+
   // const [pageNumberLimit, setpageNumberLimit] = useState(4);
   // const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(4);
   // const [minPageNumberLimit, setminPageNumberLimit] = useState(1);

@@ -1,11 +1,13 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 // import { useState } from "react";
 import "../Filters Panel/filterspanel.css";
 
 import {
   getAllDiets,
+  getAllRecipes,
   filterByDiet,
   setCurrentPage,
   filterCreated,
@@ -60,6 +62,12 @@ const FiltersBar = (props) => {
     // setScoreOrder(`Ordered${e.target.value}`);
   };
   //-----------------------------------------------------------------
+
+  const onClickHandler = (e) => {
+    e.preventDefault();
+    dispatch(getAllRecipes());
+  };
+
   return (
     <div>
       {/* SORTERS */}
@@ -78,6 +86,10 @@ const FiltersBar = (props) => {
           dietFilterHandler={dietFilterHandler}
           createdFilterHandler={createdFilterHandler}
         />
+        <Link to="/create">
+          <button>Create Recipe</button>
+        </Link>
+        <button onClick={(e) => onClickHandler(e)}>Reset</button>
       </div>
     </div>
   );

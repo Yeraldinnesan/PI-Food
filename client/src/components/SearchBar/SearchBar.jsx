@@ -15,22 +15,20 @@ const SearchBar = (props) => {
 
   const updateName = (e) => {
     e.preventDefault();
-    // obtenemos el valor del campo de búsqueda
+    // capture the value of the input
     const input = e.target.value;
 
-    // si el valor del campo de búsqueda es vacío, establecemos el estado name en una cadena vacía
+    // if it's empty, set it as an empty string
     if (input === "") {
       setName("");
       return;
     }
 
-    // validamos el valor del campo de búsqueda
-    const regex = /^[a-zA-Z]+$/; // expresión regular que solo permite letras, números y espacios
+    // validate the value of the search input
+    const regex = /^[a-zA-Z]+$/; // regular expresion that allows num, leters and space
     if (!regex.test(input)) {
       // mostramos el mensaje de alerta solo si el valor del campo de búsqueda no es vacío
-      alert(
-        "El campo de búsqueda no puede contener caracteres especiales o estar vacío"
-      );
+      alert("The search input can not be empty or contain special characters");
       return;
     }
 

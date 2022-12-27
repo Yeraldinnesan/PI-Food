@@ -22,6 +22,7 @@ export const CreateRecipe = (props) => {
     name: "",
     summary: "",
     healthScore: 10,
+    cookingTime: 20,
     image: "",
     diets: [],
     steps: "",
@@ -30,6 +31,7 @@ export const CreateRecipe = (props) => {
     name: "",
     summary: "",
     healthScore: 0,
+    cookingTime: 0,
     image: "",
     diets: [],
     steps: "",
@@ -40,7 +42,7 @@ export const CreateRecipe = (props) => {
   }, [dispatch]);
 
   ///"handleCheckChange" se utiliza para manejar el cambio de estado de los campos de tipo checkbox que seleccionan las dietas de la receta. Actualiza el estado de "input" y "errorInput" con la nueva información.
-  const handleCheckChange = (e) => {
+  const handleCheckboxChange = (e) => {
     if (e.target.checked) {
       setInput({
         ...input,
@@ -83,7 +85,7 @@ export const CreateRecipe = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (allRecipes.find((ele) => ele.name === input.name)) {
-      alert("Esta receta ya existe");
+      alert("This recipe already exists");
       return;
     }
 
@@ -93,11 +95,12 @@ export const CreateRecipe = (props) => {
       name: "",
       summary: "",
       healthScore: 10,
+      cookingTime: 0,
       image: "",
       diets: [],
       steps: "",
     });
-    alert("receta creada correctamente");
+    alert("Your recipe was created succesfully");
     history.push("/home");
   };
 
@@ -105,27 +108,28 @@ export const CreateRecipe = (props) => {
     <div>
       <div>
         <Link to="/home">
-          <button>Back to home</button>
+          <button>🏠</button>
         </Link>
+
+        <h1>Create your own recipe! 📝</h1>
 
         <form onSubmit={(e) => handleSubmit(e)}>
           <div>
-            <label>Name:</label>
-
+            <p>* Mandatory fields</p>
+            <label>Name: *</label>
             <input
               type="text"
               name="name"
-              placeholder="Escribe el nombre de tu receta.."
+              placeholder="✏️ Name your recipe..."
               value={input.name}
               onChange={(e) => handleChange(e)}
             />
             {errorInput.name ? <span>{errorInput.name}</span> : <span></span>}
-            <label>Descripcion:</label>
-
+            <label>Description: *</label>
             <textarea
               type="text"
               name="summary"
-              placeholder="Descripcion de tu receta"
+              placeholder="✏️ Briefly describe your recipe..."
               value={input.summary}
               onChange={(e) => handleChange(e)}
             />
@@ -134,39 +138,52 @@ export const CreateRecipe = (props) => {
             ) : (
               <span></span>
             )}
-            <label>Puntaje nutricional:</label>
+            <label>Health Score: 🫀</label>
             <input
               type="number"
               name="healthScore"
-              placeholder="¿Que puntaje nutricional posee?"
+              placeholder="✏️ ..."
               value={input.healthScore}
               onChange={(e) => handleChange(e)}
             />
+
             {errorInput.healthScore ? (
               <span>{errorInput.healthScore}</span>
             ) : (
               <span></span>
             )}
-            <label>Imagen:</label>
+            <label>Cooking Time: ⏰</label>
+            <input
+              type="number"
+              name="cookingTime"
+              placeholder="✏️ ..."
+              value={input.cookingTime}
+              onChange={(e) => handleChange(e)}
+            />
+
+            {errorInput.cookingTime ? (
+              <span>{errorInput.cookingTime}</span>
+            ) : (
+              <span></span>
+            )}
+            <label>Image:</label>
             <input
               type="text"
               name="image"
-              placeholder="Por favor un enlace con la foto de tu receta"
+              placeholder="Insert an image URL ..."
               value={input.image}
               onChange={(e) => handleChange(e)}
             />
             {errorInput.image ? <span>{errorInput.image}</span> : <span></span>}
-
-            <label>Pasos de preparacion:</label>
+            <label>Cooking instructions:</label>
             <textarea
               type="text"
               name="steps"
-              placeholder="Pasos para realizar la receta"
+              placeholder="✏️ ..."
               value={input.steps}
               onChange={(e) => handleChange(e)}
             />
             {errorInput.steps ? <span>{errorInput.steps}</span> : <span></span>}
-
             {!Object.entries(errorInput).length ? (
               <button type="submit">Create Recipe</button>
             ) : (
@@ -181,7 +198,7 @@ export const CreateRecipe = (props) => {
 
           <div>
             <div>
-              <label>Types of Diets:</label>
+              <label>Diets:</label>
               {diets?.map((element, index) => {
                 return (
                   <label key={index}>
@@ -190,10 +207,9 @@ export const CreateRecipe = (props) => {
                       type="checkbox"
                       value={element.name}
                       name={element.name}
-                      onChange={handleCheckChange}
+                      onChange={handleCheckboxChange}
                     />
-
-                    {element.name}
+                    👉 {element.name}
                   </label>
                 );
               })}

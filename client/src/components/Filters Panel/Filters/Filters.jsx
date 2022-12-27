@@ -6,10 +6,8 @@ const Filters = (props) => {
     <div className="filters-wrap">
       <label className="label">
         <p>Diets</p>
-        <select onChange={(e) => props.dietFilterHandler(e)}>
-          <option selected disabled>
-            --
-          </option>
+        <select defaultValue="--" onChange={(e) => props.dietFilterHandler(e)}>
+          <option value="--">--</option>
           {props.allDiets?.map((el) => (
             <option value={el.name}>{el.name}</option>
           ))}

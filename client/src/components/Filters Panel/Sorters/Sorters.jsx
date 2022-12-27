@@ -10,24 +10,18 @@ const Sorters = (props) => {
   return (
     <div className="sorters-wrap">
       {/* <div className="alph"> */}
-      <p>Alphabetically 📘</p>
+      <p>A - Z 📘</p>
       <label>
-        <select onChange={(e) => props.alphSorterHandler(e)}>
-          <option selected disabled>
-            --
-          </option>
+        <select defaultValue="--" onChange={(e) => props.alphSorterHandler(e)}>
+          <option value="--">--</option>
           <option value="a-z">a - z</option>
           <option value="z-a">z - a</option>
         </select>
       </label>
-      {/* </div> */}
-      {/* <div className="score-range"> */}
       <label>
         <p>Health Score 🫀</p>
-        <select onChange={(e) => props.scoreSorterHandler(e)}>
-          <option selected disabled>
-            --
-          </option>
+        <select defaultValue="--" onChange={(e) => props.scoreSorterHandler(e)}>
+          <option value="--">--</option>
           <option value="min-max">min - max</option>
           <option value="max-min">max - min</option>
         </select>
