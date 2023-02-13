@@ -6,19 +6,28 @@ const Filters = (props) => {
     <div className="filters-wrap">
       <label className="label">
         <p>Diets</p>
-        <select defaultValue="--" onChange={(e) => props.dietFilterHandler(e)}>
-          <option value="--">--</option>
-          {props.allDiets?.map((el) => (
-            <option value={el.name}>{el.name}</option>
-          ))}
-        </select>
+        <span className="custom-dropdown big">
+          <select
+            defaultValue="--"
+            onChange={(e) => props.dietFilterHandler(e)}
+          >
+            <option value="--">--</option>
+            {props.allDiets?.map((el, i) => (
+              <option key={i} value={el.name}>
+                {el.name}
+              </option>
+            ))}
+          </select>
+        </span>
       </label>
       <label className="label">
         By created:
-        <select onChange={(e) => props.createdFilterHandler(e)}>
-          <option value="api">Recipe Book</option>
-          <option value="database">Created</option>
-        </select>
+        <span className="custom-dropdown big">
+          <select onChange={(e) => props.createdFilterHandler(e)}>
+            <option value="api">Recipe Book</option>
+            <option value="database">Created</option>
+          </select>
+        </span>
       </label>
     </div>
   );

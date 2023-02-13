@@ -9,14 +9,19 @@ import {
   GET_RECIPES_BY_NAME,
   CLEAR_RECIPES,
   RECIPE_DETAIL,
+  CLEAR_RECIPE_DETAIL,
+  ADD_TO_FAVS,
+  REMOVE_FROM_FAVS,
+  DELETE_RECIPE,
 } from "../actions/index";
 
 const initialState = {
   recipes: [], // rendering
   allRecipes: [], // backup one
   diets: [],
-  detail: [],
+  recipeDetail: [],
   currentPage: 1,
+  favorites: [],
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -48,7 +53,7 @@ export const rootReducer = (state = initialState, action) => {
 
     case RECIPE_DETAIL:
       return {
-        detail: action.payload,
+        recipeDetail: action.payload,
       };
 
     case "POST_RECIPE":
@@ -61,6 +66,60 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         recipes: [],
       };
+
+    case CLEAR_RECIPE_DETAIL:
+      return {
+        ...state,
+        recipeDetail: [],
+      };
+
+    case DELETE_RECIPE:
+      return {
+        ...state,
+        allRecipes: state.allRecipes.filter((r) => r !== action.payload),
+      };
+
+    //----------------------> FAVORITES FEATURE
+
+    // case ADD_TO_FAVS:
+    //   if (!state.favorites?.find((fav) => fav.id === action.payload.id)) {
+    //     const updatedFavorites = [...state.favorites, action.payload];
+    //     localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+    //     return {
+    //       ...state,
+    //       favorites: updatedFavorites,
+    //     };
+    //   } else {
+    //     return state;
+    //   }
+
+    // case REMOVE_FROM_FAVS:
+    //   const updatedFavorites = state.favorites?.filter(
+    //     (el) => el.id !== action.payload.id
+    //   );
+    //   localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+    //   return {
+    //     ...state,
+    //     favorites: updatedFavorites,
+    //   };
+
+    case ADD_TO_FAVS:
+      const favorites = state.favorites || [];
+      if (!favorites.find((fav) => fav.id === action.payload.id)) {
+        return {
+          ...state,
+          favorites: [...favorites, action.payload],
+        };
+      } else {
+        return state;
+      }
+
+    case REMOVE_FROM_FAVS:
+      return {
+        ...state,
+        favorites: state.favorites?.filter((el) => el.id !== action.payload.id),
+      };
+
     //--------------------------> FILTERS <----------------------------------------
     case FILTER_BY_DIET:
       const filteredRecipes = state.recipes.filter((el) =>
@@ -109,6 +168,7 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         recipes: createdFiltered,
       };
+
     //------------------------> SORTERS <-------------------------------------------
 
     case SORT_ALPHABETICALLY:

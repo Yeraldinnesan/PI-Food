@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -17,9 +17,20 @@ import {
 
 import Filters from "./Filters/Filters";
 import Sorters from "./Sorters/Sorters";
+import Favorites from "./Favorites/Favorites";
 
 const FiltersBar = (props) => {
   const allDiets = useSelector((state) => state.diets);
+  const Favs = useSelector((state) => state.favorites);
+  const [openModal, setOpenModal] = useState(false);
+
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
 
   //------------------->  LOCAL STATES <------------------
   // const [alphOrder, setAlphOrder] = useState("");
@@ -86,10 +97,28 @@ const FiltersBar = (props) => {
           dietFilterHandler={dietFilterHandler}
           createdFilterHandler={createdFilterHandler}
         />
+        <button
+          className="custom-btn btn-home"
+          onClick={(e) => onClickHandler(e)}
+        >
+          🔄
+        </button>
+
         <Link to="/create">
-          <button>Create Recipe</button>
+          <button className="custom-btn btn-home">Create Recipe</button>
         </Link>
-        <button onClick={(e) => onClickHandler(e)}>Reset</button>
+        <div>
+          <div className="custom-btn btn-home" onClick={handleOpenModal}>
+            ❤️
+            <span>{Favs?.length}</span>
+          </div>
+          {openModal && (
+            <Favorites
+              handleCloseModal={handleCloseModal}
+              openModal={openModal}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

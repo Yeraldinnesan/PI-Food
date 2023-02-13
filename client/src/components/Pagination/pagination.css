@@ -1,5 +1,37 @@
-.pagination {
+/* .pagination {
   display: flex;
   flex-direction: row;
   justify-content: center;
+} */
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.pagination button:hover:not(.active) {
+  background-color: rgb(104, 191, 209);
+}
+
+.pagination button {
+  width: 30px;
+  height: 30px;
+  font-family: inherit;
+  font-weight: 300;
+  font-size: 13px;
+  margin: 0 5px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: transparent;
+  color: rgb(15, 14, 14);
+  border-color: #eee;
+}
+
+.pagination button.active {
+  font-weight: 900;
+  border-color: #101010;
+  background: #97ffff;
+  color: #101010;
 }

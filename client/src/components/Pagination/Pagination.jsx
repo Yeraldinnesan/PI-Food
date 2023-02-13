@@ -9,6 +9,7 @@ const Pagination = (props) => {
 
   const allRecipes = useSelector((state) => state.recipes);
   const currentPage = useSelector((state) => state.currentPage);
+  const favorites = useSelector((state) => state.favorites);
 
   let pageNumbers = [];
   for (
@@ -17,6 +18,8 @@ const Pagination = (props) => {
     i++
   )
     pageNumbers.push(i);
+
+  //------------------------------> LOCAL STATES -------------------------------
 
   // const [pageNumberLimit, setpageNumberLimit] = useState(4);
   // const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(4);
@@ -58,9 +61,15 @@ const Pagination = (props) => {
   return (
     <div className="pagination">
       {pageNumbers?.map(
-        (num) => (
+        (num, i) => (
           // num < maxPageNumberLimit + 1 && num > minPageNumberLimit - 1 ? (
-          <button onClick={() => onPageChange(num)}>{num}</button>
+          <button
+            key={i}
+            onClick={() => onPageChange(num)}
+            className={num == currentPage ? "active" : ""}
+          >
+            {num}
+          </button>
         )
         // ) : null
       )}

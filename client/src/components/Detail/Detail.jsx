@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -6,23 +6,23 @@ import {
   getRecipeDetail,
   getAllRecipes,
   setCurrentPage,
+  clearRecipeDetail,
+  deleteRecipe,
 } from "../../redux/actions";
 import { useEffect } from "react";
 import Loading from "../Loading/Loading";
 
 const Detail = () => {
+  //crear un action que setee un get detail id and use it in the home handler
+  // const [isFav, setIsFav] = useState(false);
+
   const dispatch = useDispatch();
   const history = useHistory();
+  const recDetail = useSelector((state) => state.recipeDetail);
+  const favorites = useSelector((state) => state.favorites);
 
   const { id } = useParams();
-  console.log("id", id);
-  const recipeDetail = useSelector((state) => state.detail);
-
-  const homeHandler = () => {
-    // dispatch(actions.ClearId());
-    dispatch(getAllRecipes());
-    dispatch(setCurrentPage(1));
-  };
+  //   console.log("id", id);
 
   function removeLinks(html) {
     // Crea un elemento div temporal
@@ -38,54 +38,117 @@ const Detail = () => {
     // Devuelve el contenido del elemento div sin los enlaces
     return temp.innerHTML;
   }
-  const htmlWithoutLinks = removeLinks(recipeDetail.summary);
+  const htmlWithoutLinks = removeLinks(recDetail?.summary);
 
+  const handleDelete = () => {
+    dispatch(clearRecipeDetail());
+    dispatch(deleteRecipe(id));
+    dispatch(getAllDiets());
+    dispatch(getAllRecipes());
+    alert("Receta eliminada correctamente");
+    dispatch(clearRecipeDetail());
+    history.push("/home");
+    dispatch(setCurrentPage(1));
+  };
   useEffect(() => {
     dispatch(getRecipeDetail(id));
     dispatch(getAllDiets());
-  }, []);
+  }, [dispatch, id]);
 
+  const homeHandler = () => {
+    // dispatch(clearRecipeDetail()); // Clear the recipeDetail state before getting the new recipe detail
+    dispatch(setCurrentPage(1));
+    dispatch(getAllRecipes());
+  };
   return (
     <div>
       <div>
-        <button onClick={homeHandler()}>
-          <Link to="/home">🏠</Link>
-        </button>
+        <Link to="/home">
+          <button onClick={homeHandler()}>🏠 Home</button>
+        </Link>
+        {id.length > 6 ? (
+          <>
+            <Link to={"/update/" + id}>
+              <button>🛠 Update</button>
+            </Link>
 
-        <button>🗑</button>
+            <button onClick={() => handleDelete()}>🗑 Delete</button>
+          </>
+        ) : null}
       </div>
-
-      <div>
-        <h1>{recipeDetail.name}</h1>
-        <h2>{recipeDetail.healthScore}</h2>
-        <img src={recipeDetail.image}></img>
-        <h4>Cooking Time: {recipeDetail.cookingTime}</h4>
+      {recDetail && recDetail.name ? (
         <div>
-          <h4>Diets</h4>
-          {recipeDetail.diets?.map((ele, index) => (
-            <h3 key={index}>{ele}</h3>
-          ))}
+          <h1>{recDetail.name}</h1>
+          <h2>{recDetail.healthScore}</h2>
+          <img src={recDetail.image}></img>
+          <h4>Cooking Time: {recDetail.cookingTime}</h4>
+          <div>
+            <h4>Diets</h4>
+            {recDetail.diets?.map((ele, index) => (
+              <h3 key={index}>{ele}</h3>
+            ))}
+          </div>
         </div>
-      </div>
-
-      <div>
-        {recipeDetail.steps ? <h4>Steps</h4> : <br />}
-
+      ) : (
+        <p>Loading...</p>
+      )}
+      {recDetail.steps ? (
         <div>
-          {recipeDetail.steps ? (
-            <p>{recipeDetail.steps}</p>
-          ) : (
-            <>
-              <br />
-              <br />
-            </>
-          )}
+          <h4>Steps</h4>
+          <div>
+            <p>{recDetail.steps}</p>
+          </div>
         </div>
-      </div>
-      <h4>Summary:</h4>
-      <div dangerouslySetInnerHTML={{ __html: htmlWithoutLinks }}></div>
+      ) : null}
+      {recDetail.summary ? (
+        <div>
+          <h4>Summary:</h4>
+          <div dangerouslySetInnerHTML={{ __html: htmlWithoutLinks }}></div>
+        </div>
+      ) : null}
     </div>
   );
+
+  //   return (
+  //     <div>
+  //       <div>
+  //         <button onClick={homeHandler()}>
+  //           <Link to="/home">🏠</Link>
+  //         </button>
+
+  //         <button>🗑</button>
+  //       </div>
+
+  //       <div>
+  //         <h1>{recDetail.name}</h1>
+  //         <h2>{recDetail.healthScore}</h2>
+  //         <img src={recDetail.image}></img>
+  //         <h4>Cooking Time: {recDetail.cookingTime}</h4>
+  //         <div>
+  //           <h4>Diets</h4>
+  //           {recDetail.diets?.map((ele, index) => (
+  //             <h3 key={index}>{ele}</h3>
+  //           ))}
+  //         </div>
+  //       </div>
+  //       <div>
+  //         {recDetail.steps ? <h4>Steps</h4> : <br />}
+
+  //         <div>
+  //           {recDetail.steps ? (
+  //             <p>{recDetail.steps}</p>
+  //           ) : (
+  //             <>
+  //               <br />
+  //               <br />
+  //             </>
+  //           )}
+  //         </div>
+  //       </div>
+  //       <h4>Summary:</h4>
+  //       <div dangerouslySetInnerHTML={{ __html: htmlWithoutLinks }}></div>
+  //     </div>
+  //   );
 };
 
 export default Detail;

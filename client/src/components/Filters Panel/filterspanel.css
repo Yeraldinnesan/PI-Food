@@ -3,6 +3,12 @@
   font-weight: 600;
 }
 
+.span {
+}
+.custom-btn {
+  text-align: center;
+}
+
 .sort-group {
   margin-bottom: 2rem;
 }

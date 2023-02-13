@@ -17,6 +17,97 @@ input {
 
 button {
   font-family: "Raleway", sans-serif;
+  padding: 9px;
+}
+.custom-btn {
+  width: 130px;
+  height: 40px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-family: "Lato", sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+/* 2 */
+.btn-home {
+  background: linear-gradient(
+    0deg,
+    rgb(120, 181, 213) 0%,
+    rgb(26, 120, 178) 100%
+  );
+  line-height: 42px;
+  padding: 0;
+  border: none;
+}
+.btn-7 span {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.btn-7:before,
+.btn-7:after {
+  position: absolute;
+  content: "";
+  right: 0;
+  bottom: 0;
+  background: rgba(251, 75, 2, 1);
+  box-shadow: -7px -7px 20px 0px rgba(255, 255, 255, 0.9),
+    -4px -4px 5px 0px rgba(255, 255, 255, 0.9),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.2), 4px 4px 5px 0px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+.btn-7:before {
+  height: 0%;
+  width: 2px;
+}
+.btn-7:after {
+  width: 0%;
+  height: 2px;
+}
+.btn-7:hover {
+  color: rgba(251, 75, 2, 1);
+  background: transparent;
+}
+.btn-7:hover:before {
+  height: 100%;
+}
+.btn-7:hover:after {
+  width: 100%;
+}
+.btn-7 span:before,
+.btn-7 span:after {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 0;
+  background: rgba(251, 75, 2, 1);
+  box-shadow: -7px -7px 20px 0px rgba(255, 255, 255, 0.9),
+    -4px -4px 5px 0px rgba(255, 255, 255, 0.9),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.2), 4px 4px 5px 0px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+.btn-7 span:before {
+  width: 2px;
+  height: 0%;
+}
+.btn-7 span:after {
+  height: 2px;
+  width: 0%;
+}
+.btn-7 span:hover:before {
+  height: 100%;
+}
+.btn-7 span:hover:after {
+  width: 100%;
 }
 
 select {
@@ -31,6 +122,75 @@ select {
 body {
   -ms-overflow-style: none; /*IE AND EDGE*/
   scrollbar-width: none; /*FIREFOX*/
+}
+
+.big {
+  font-size: 0.98em;
+}
+
+/* Custom dropdown */
+.custom-dropdown {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  /* margin: 10px;  */
+}
+
+.custom-dropdown select {
+  background-color: #2ecbf7;
+  color: rgb(8, 6, 6);
+  font-size: inherit;
+  padding: 0.5em;
+  padding-right: 2.5em;
+  border: 1;
+  margin: 0;
+  border-radius: 3px;
+  text-indent: 0.01px;
+  text-overflow: "";
+  -webkit-appearance: button; /* hide default arrow in chrome OSX */
+}
+
+.custom-dropdown::before,
+.custom-dropdown::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.custom-dropdown::after {
+  /*  Custom dropdown arrow */
+  content: "\25BC";
+  height: 1em;
+  font-size: 0.625em;
+  line-height: 1;
+  right: 1.2em;
+  top: 50%;
+  margin-top: -0.5em;
+}
+
+.custom-dropdown::before {
+  /*  Custom dropdown arrow cover */
+  width: 2em;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 0 3px 3px 0;
+}
+
+.custom-dropdown select[disabled] {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.custom-dropdown select[disabled]::after {
+  color: rgba(0, 0, 0, 0.1);
+}
+
+.custom-dropdown::before {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.custom-dropdown::after {
+  color: rgba(0, 0, 0, 0.4);
 }
 
 /* .App {

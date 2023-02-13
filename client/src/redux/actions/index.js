@@ -9,7 +9,12 @@ export const SORT_BY_HEALTHSCORE = "SORT_BY_HEALTHSCORE";
 export const GET_RECIPES_BY_NAME = "GET_RECIPES_BY_NAME";
 export const CLEAR_RECIPES = "CLEAR_RECIPES";
 export const POST_RECIPE = "POST_RECIPE";
+export const DELETE_RECIPE = "DELETE_RECIPE";
 export const RECIPE_DETAIL = "RECIPE_DETAIL";
+export const CLEAR_RECIPE_DETAIL = "RECIPE_DETAIL";
+export const ADD_TO_FAVS = "ADD_TO_FAVS";
+export const REMOVE_FROM_FAVS = "REMOVE_FROM_FAVS";
+export const SET_LOADING = "SET_LOADING";
 
 export const filterByDiet = (payload) => {
   return {
@@ -45,11 +50,39 @@ export const sortByHealthScore = (payload) => {
   };
 };
 
-export function clearRecipes() {
+export const clearRecipes = () => {
   return {
     type: CLEAR_RECIPES,
   };
-}
+};
+
+export const setLoading = () => {
+  return {
+    type: SET_LOADING,
+  };
+};
+//-----------------------> FAVORITES FEATURE
+
+export const addToFavs = (payload) => {
+  return {
+    type: ADD_TO_FAVS,
+    payload,
+  };
+};
+
+export const removeFromFavs = (payload) => {
+  return {
+    type: REMOVE_FROM_FAVS,
+    payload,
+  };
+};
+
+//------------------------------------------------
+export const clearRecipeDetail = () => {
+  return {
+    type: CLEAR_RECIPE_DETAIL,
+  };
+};
 //---------------------> ACTIONS THAT CONNECT FRONT AND BACK <-------------------
 
 const recipesBaseUrl = "http://localhost:3001/recipes";
@@ -114,12 +147,29 @@ export const getRecipeDetail = (id) => {
     try {
       let res = await axios(`${recipesBaseUrl}/${id}`);
       return dispatch({
-        type: "RECIPE_DETAIL",
+        type: RECIPE_DETAIL,
         payload: res.data,
       });
     } catch (err) {
       window.alert(`Oooops! Something went wrong`);
     }
+  };
+};
+
+export const deleteRecipe = (id) => {
+  return async function (dispatch) {
+    const selectRecipe = await axios.delete(`${recipesBaseUrl}/${id}`);
+    return dispatch({
+      type: DELETE_RECIPE,
+      payload: selectRecipe,
+    });
+  };
+};
+
+export const update = (id, payload) => {
+  return async function () {
+    const UPDATE = await axios.put(`${recipesBaseUrl}/${id}`, payload);
+    return UPDATE;
   };
 };
 

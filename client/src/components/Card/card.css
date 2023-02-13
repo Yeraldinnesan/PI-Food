@@ -1,4 +1,6 @@
 .card-wrap {
+  position: relative;
+  transition: transform 0.2s;
   /* width: 100%; */
   border-radius: 6px;
   /* height: 100%; */
@@ -7,6 +9,40 @@
   /* box-shadow: 10px 10px 5px lightblue; */
   box-shadow: 5px 5px 2.5px 6px lightblue;
   /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+}
+.card-wrap:hover {
+  /* Add a hover effect */
+  /* transform: translateY(-10px); Move the card up when hovered */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); /* Add a shadow to the card */
+}
+
+.card-wrap button {
+  width: 30px;
+  height: 30px;
+  position: absolute; /* Position the button absolutely */
+  right: 0; /* Align the button to the right */
+  top: 0; /* Align the button to the bottom */
+  border-color: black;
+  border-radius: 45%;
+  border: 0ch;
+  background-color: transparent;
+  transition: transform 0.2s;
+}
+
+.card-wrap button:hover {
+  /* Add a hover effect */
+  transform: translateY(-10px); /* Move the card up when hovered */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); /* Add a shadow to the card */
+}
+
+.card-link {
+  text-decoration: none;
+  color: rgb(37, 34, 34);
+}
+
+.card-wrap:hover {
+  background-color: #eee;
+  cursor: pointer;
 }
 
 /* .card-wrap {

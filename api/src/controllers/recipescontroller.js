@@ -31,9 +31,7 @@ const filterByName = async (name) => {
 const filterById = async (id) => {
   try {
     const searchAll = await allSearches();
-    const foundRecipe = await searchAll.find(
-      (el) => parseInt(el.id) === parseInt(id)
-    );
+    const foundRecipe = await searchAll.find((el) => el.id == id);
     if (foundRecipe) return foundRecipe;
     else throw `No recipes found with the id ${id}! Try again!`;
   } catch (err) {
