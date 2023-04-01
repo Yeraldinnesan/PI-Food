@@ -1,0 +1,39 @@
+.landingpage-bg {
+  background-image: url("../../assets/bglanding.png");
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.landing-title {
+  position: absolute;
+  top: 25%;
+  right: 10%;
+  color: green;
+  font-size: 4rem;
+  text-align: right;
+}
+
+.custom-btn {
+  background-color: #f5a623;
+  color: white;
+  font-size: 1rem;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.custom-btn:hover {
+  background-color: #f39000;
+}
+
+.button-container {
+  position: absolute;
+  top: 70%;
+  right: 10%;
+}

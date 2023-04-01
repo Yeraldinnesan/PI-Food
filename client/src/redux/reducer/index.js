@@ -13,6 +13,7 @@ import {
   ADD_TO_FAVS,
   REMOVE_FROM_FAVS,
   DELETE_RECIPE,
+  SET_LOADING,
 } from "../actions/index";
 
 const initialState = {
@@ -22,6 +23,7 @@ const initialState = {
   recipeDetail: [],
   currentPage: 1,
   favorites: [],
+  loading: false
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -78,6 +80,11 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         allRecipes: state.allRecipes.filter((r) => r !== action.payload),
       };
+
+      case SET_LOADING:
+        return {
+          loading: true
+        }
 
     //----------------------> FAVORITES FEATURE
 
